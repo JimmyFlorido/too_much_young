@@ -1,0 +1,33 @@
+---
+title: "GettinDF"
+author: "Lira"
+date: "15/06/2024"
+output: html_document
+---
+
+Pacotes necessários
+
+```{r PACKAGES}
+
+library(tidyverse)
+library(read.dbc)
+library(arrow)
+
+```
+
+Faça a conversão de todos os arquivos .dbc
+
+```{r CONVERSION}
+
+files <- list.files(pattern = "\\.dbc$")
+
+for (i in files){
+  nascidos <- read.dbc(i)
+  name <- gsub('.dbc', '', i)
+
+  write_parquet(nascidos, gsub(" ", "", paste(name,".parquet")))
+
+}
+
+```
+
